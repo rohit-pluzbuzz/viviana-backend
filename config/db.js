@@ -1,18 +1,18 @@
-// viviana-backend/config/db.js
 const mysql = require("mysql2/promise");
 require("dotenv").config();
 
 const db = mysql.createPool({
-  host: "mysql-2d196fdd-vivana.f.aivencloud.com", // ✅ only hostname here
-  port: 16963, // ✅ add port separately
+  host: "mysql-2d196fdd-viviana.f.aivencloud.com", // ✅ hostname only
+  port: 16963, // ✅ Aiven MySQL port
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   waitForConnections: true,
-  connectionLimit: 10,
+  connectionLimit: 4,
   queueLimit: 0,
   ssl: {
-    rejectUnauthorized: true, // ✅ Aiven MySQL usually requires SSL
+    // ✅ Required for Aiven
+    rejectUnauthorized: true,
   },
 });
 
@@ -21,7 +21,7 @@ db.getConnection()
     console.log("✅ Connected to MySQL database.");
   })
   .catch((err) => {
-    console.error("❌ Database connection failed:", err.message);
+    console.error("❌ Database connection failed:", err);
   });
 
 module.exports = db;

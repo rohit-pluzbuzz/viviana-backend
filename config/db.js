@@ -11,7 +11,7 @@ const db = mysql.createPool({
   connectionLimit: 4,
   queueLimit: 0,
   ssl: {
-    rejectUnauthorized: true, // ✅ Aiven MySQL usually requires SSL
+    rejectUnauthorized: false, // ✅ Aiven MySQL usually requires SSL
   },
 });
 

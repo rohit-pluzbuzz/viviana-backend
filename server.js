@@ -22,9 +22,12 @@ app.use(cors({
 }));
 
 // ✅ Serve uploaded images as static files
-const fs = require('fs');
-const uploadDir = path.join(__dirname, 'uploads');
-if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+const fs = require("fs");
+// ensure uploads directory exists
+const uploadsDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
 
 
 // ✅ Mount routes

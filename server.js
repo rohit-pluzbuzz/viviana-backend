@@ -30,6 +30,8 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
+// serve uploaded files publicly at /uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ✅ Mount routes
 app.use("/api/products", productRoutes);

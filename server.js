@@ -23,7 +23,6 @@ app.use(cors({
 }));
 
 // ✅ Serve uploaded images as static files
-const fs = require("fs");
 // ensure uploads directory exists
 const uploadsDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsDir)) {

@@ -22,7 +22,10 @@ app.use(cors({
 }));
 
 // ✅ Serve uploaded images as static files
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+const fs = require('fs');
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+
 
 // ✅ Mount routes
 app.use("/api/products", productRoutes);

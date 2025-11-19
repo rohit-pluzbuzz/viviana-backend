@@ -7,7 +7,8 @@ const storage = multer.diskStorage({
     cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
+    const safeOriginal = file.originalname.replace(/\s+/g, "");
+    cb(null, Date.now() + "-" + safeOriginal);
   },
 });
 
@@ -17,8 +18,14 @@ const handleUpload = (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: "No file uploaded" });
   }
+
   const filePath = `/uploads/${req.file.filename}`;
-  res.status(200).json({ url: filePath });
+  const fullUrl = `${req.protocol}://${req.get("host")}${filePath}`;
+
+  res.status(200).json({
+    filePath,
+    fullUrl
+  });
 };
 
 module.exports = { upload, handleUpload };
